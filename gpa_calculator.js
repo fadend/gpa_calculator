@@ -21,8 +21,9 @@ function addNewClass() {
     const td = document.createElement("td");
     const input = document.createElement("input");
     input.size = "15";
-    if (i != 0) {
+    if (i > 0) {
       input.addEventListener("change", updateCreditsGpa);
+      input.classList.add("gpa-input");
     }
     td.appendChild(input);
     newTr.appendChild(td);
@@ -31,12 +32,7 @@ function addNewClass() {
 }
 
 function updateCreditsGpa() {
-  const tbody = document.getElementById("classes_tbody");
-  const elements = tbody.getElementsByTagName("input");
-  updateCreditsGpaWith(elements);
-}
-
-function updateCreditsGpaWith(elements) {
+  const elements = document.getElementsByClassName("gpa-input");
   let totalGradedCredits = 0;
   let totalUngradedCredits = 0;
   let totalPoints = 0;
@@ -44,14 +40,14 @@ function updateCreditsGpaWith(elements) {
   let haveAtLeastOneGrade = false;
 
   const length = elements.length;
-  for (let i = 0; i < length; i += 3) {
-    const letter = elements[i + 2].value.toUpperCase();
-    if (letter == "X") {
+  for (let i = 0; i < length; i += 2) {
+    const letter = elements[i + 1].value.toUpperCase();
+    if (letter === "" || letter === "X") {
       continue;
     }
 
-    const creditsString = elements[i + 1].value;
-    if (creditsString == "") {
+    const creditsString = elements[i].value;
+    if (creditsString === "") {
       continue;
     }
 
@@ -61,16 +57,13 @@ function updateCreditsGpaWith(elements) {
       return;
     }
 
-    if (letter == "P" || letter == "T" || letter == "N") {
+    if (letter === "P" || letter === "T" || letter === "N") {
       totalUngradedCredits += credits;
       continue;
     } else {
       totalGradedCredits += credits;
     }
 
-    if (letter == "") {
-      continue;
-    }
     if (!LETTER_TO_POINTS.hasOwnProperty(letter)) {
       alert('Unrecognized letter grade: "' + letter + '"');
       return;
@@ -89,3 +82,9 @@ function updateCreditsGpaWith(elements) {
     gpaInput.value = "";
   }
 }
+
+[...document.getElementsByClassName("gpa-input")].forEach((e) =>
+  e.addEventListener("change", updateCreditsGpa),
+);
+document.getElementById("new-class-button").addEventListener("click", addNewClass);
+document.getElementById("calculate-button").addEventListener("click", updateCreditsGpa);
