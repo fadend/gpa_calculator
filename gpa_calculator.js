@@ -38,47 +38,6 @@ function formatDecimal(aFloat) {
   }
 }
 
-// Return the char of aString at index.
-// If index is invalid, the results are undefined.
-function charAt(aString, index) {
-  var length = aString.length;
-  return aString.substring(index, index + 1);
-}
-
-// Convert the given string to a float or return Invalid
-// if the given input is not recognized as credit hours.
-function toFloatOrInvalid(input) {
-  var length = input.length;
-  if (length == 0) {
-    return Invalid;
-  }
-  var first = charAt(input, 0);
-  if (first == "0") {
-    if (length == 1) {
-      return 0.0;
-    } else if (charAt(input, 1) != ".") {
-      return Invalid;
-    }
-  } else if ("123456789".indexOf(first) == -1) {
-    return Invalid;
-  }
-  var i = 1;
-  for (; i < length; ++i) {
-    var m = ".0123456789".indexOf(charAt(input, i));
-    if (m == -1) {
-      return Invalid;
-    } else if (m == 0) {
-      break;
-    }
-  }
-  for (var j = i + 1; j < length; j++) {
-    if ("0123456789".indexOf(charAt(input, j)) == -1) {
-      return Invalid;
-    }
-  }
-  return parseFloat(input);
-}
-
 function updateCreditsGpaWith(elements) {
   var totalGradedCredits = 0;
   var totalUngradedCredits = 0;
@@ -98,8 +57,8 @@ function updateCreditsGpaWith(elements) {
       continue;
     }
 
-    var credits = toFloatOrInvalid(creditsString);
-    if (credits == Invalid) {
+    var credits = parseFloat(creditsString);
+    if (isNaN(credits)) {
       alert('Not a number: "' + creditsString + '"');
       return;
     }
