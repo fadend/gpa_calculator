@@ -1,4 +1,18 @@
-var Invalid = -1000;
+const LETTER_TO_POINTS = {
+  "A+": "4.33",
+  A: "4.0",
+  "A-": "3.67",
+  "B+": "3.33",
+  B: "3.0",
+  "B-": "2.67",
+  "C+": "2.33",
+  C: "2.0",
+  "C-": "1.67",
+  "D+": "1.33",
+  D: "1.0",
+  "D-": "0.67",
+  F: "0.0",
+};
 
 // Insert the input fields for a new class
 // into the table.
@@ -73,11 +87,11 @@ function updateCreditsGpaWith(elements) {
     if (letter == "") {
       continue;
     }
-    var points = letterToPoints(letter);
-    if (points == Invalid) {
+    if (!LETTER_TO_POINTS.hasOwnProperty(letter)) {
       alert('Unrecognized letter grade: "' + letter + '"');
       return;
     }
+    points = LETTER_TO_POINTS[letter];
     haveAtLeastOneGrade = true;
 
     totalPoints += credits * points;
@@ -89,41 +103,5 @@ function updateCreditsGpaWith(elements) {
     gpaInput.value = formatDecimal(totalPoints / totalGradedCredits);
   } else {
     gpaInput.value = "";
-  }
-}
-
-//Return the points corresponding to the given letter
-//grade or Invalid if the input is invalid. The grade
-//is expected to be capitalized: A, B, etc.
-function letterToPoints(grade) {
-  if ("A+" == grade) {
-    return 4.33;
-  } else if ("A" == grade) {
-    return 4.0;
-  } else if ("A-" == grade) {
-    return 3.67;
-  } else if ("B+" == grade) {
-    return 3.33;
-  } else if ("B" == grade) {
-    return 3.0;
-  } else if ("B-" == grade) {
-    return 2.67;
-  } else if ("C+" == grade) {
-    return 2.33;
-  } else if ("C" == grade) {
-    return 2.0;
-  } else if ("C-" == grade) {
-    return 1.67;
-  } else if ("D+" == grade) {
-    return 1.33;
-  } else if ("D" == grade) {
-    return 1.0;
-  } else if ("D-" == grade) {
-    return 0.67;
-  } else if ("F" == grade) {
-    return 0.0;
-  } else {
-    //XXX! Should we throw an exception here?
-    return Invalid;
   }
 }
