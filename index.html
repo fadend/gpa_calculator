@@ -4,9 +4,6 @@
     <title>GPA Calculator</title>
     <meta name="description" content="Calculate GPA on a 4.33 scale" />
     <script>
-      // Author: David Faden, dfaden (AT) gmail (DOT) com
-      // Last major update: September 6, 2004
-
       var Invalid = -1000;
 
       // Insert the input fields for a new class
@@ -136,14 +133,15 @@
 
           totalPoints += credits * points;
         }
-        document.results.total_credits.value =
+        document.getElementById("total-credits").value =
           totalGradedCredits + totalUngradedCredits;
+        const gpaInput = document.getElementById("gpa");
         if (haveAtLeastOneGrade && totalGradedCredits > 0) {
-          document.results.gpa.value = formatDecimal(
+          gpaInput.value = formatDecimal(
             totalPoints / totalGradedCredits,
           );
         } else {
-          document.results.gpa.value = "";
+          gpaInput.value = "";
         }
       }
 
@@ -261,28 +259,16 @@
       </table>
     </form>
     <br />
-    <script language="JavaScript">
-      if (document.createElement) {
-        document.writeln(
-          '<form><input type="button" value="Add Class" onClick="addNewClass()"></form><br>',
-        );
-      }
-    </script>
-    <form name="results" method="post" onSubmit="return false">
-      <table border="0" width="468">
-        <tr>
-          <td>Total Credits: <input name="total_credits" size="10" /></td>
-          <td>GPA: <input name="gpa" size="10" /></td>
-          <td>
-            <input
-              type="button"
-              value="Calculate"
-              onClick="updateCreditsGpa()"
-            />
-          </td>
-        </tr>
-      </table>
-    </form>
+    <input type="button" value="Add Class" onClick="addNewClass()" /><br />
+    <table border="0" width="468">
+      <tr>
+        <td>Total Credits: <input id="total-credits" size="10" /></td>
+        <td>GPA: <input id="gpa" size="10" /></td>
+        <td>
+          <input type="button" value="Calculate" onClick="updateCreditsGpa()" />
+        </td>
+      </tr>
+    </table>
     <br />
     <table border="0">
       <tr>
