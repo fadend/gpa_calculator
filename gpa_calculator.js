@@ -14,8 +14,6 @@ const LETTER_TO_POINTS = {
   F: "0.0",
 };
 
-// Insert the input fields for a new class
-// into the table.
 function addNewClass() {
   const tbody = document.getElementById("classes_tbody");
   const newTr = document.createElement("tr");
@@ -32,7 +30,6 @@ function addNewClass() {
   tbody.appendChild(newTr);
 }
 
-// Update the credits and GPA fields.
 function updateCreditsGpa() {
   const tbody = document.getElementById("classes_tbody");
   const elements = tbody.getElementsByTagName("input");
@@ -40,25 +37,25 @@ function updateCreditsGpa() {
 }
 
 function updateCreditsGpaWith(elements) {
-  var totalGradedCredits = 0;
-  var totalUngradedCredits = 0;
-  var totalPoints = 0;
+  let totalGradedCredits = 0;
+  let totalUngradedCredits = 0;
+  let totalPoints = 0;
 
-  var haveAtLeastOneGrade = false;
+  let haveAtLeastOneGrade = false;
 
-  var length = elements.length;
-  for (var i = 0; i < length; i += 3) {
-    var letter = elements[i + 2].value.toUpperCase();
+  const length = elements.length;
+  for (let i = 0; i < length; i += 3) {
+    const letter = elements[i + 2].value.toUpperCase();
     if (letter == "X") {
       continue;
     }
 
-    var creditsString = elements[i + 1].value;
+    const creditsString = elements[i + 1].value;
     if (creditsString == "") {
       continue;
     }
 
-    var credits = parseFloat(creditsString);
+    const credits = parseFloat(creditsString);
     if (isNaN(credits)) {
       alert('Not a number: "' + creditsString + '"');
       return;
