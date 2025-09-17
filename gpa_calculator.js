@@ -39,19 +39,6 @@ function updateCreditsGpa() {
   updateCreditsGpaWith(elements);
 }
 
-// Convert the given float to a string of the closest
-// float with two or fewer places after the decimal.
-function formatDecimal(aFloat) {
-  var digits = "" + Math.round(100 * aFloat);
-  var length = digits.length;
-  if (length < 3) {
-    return "0." + digits;
-  } else {
-    var dp = length - 2;
-    return digits.substring(0, dp) + "." + digits.substring(dp, length);
-  }
-}
-
 function updateCreditsGpaWith(elements) {
   var totalGradedCredits = 0;
   var totalUngradedCredits = 0;
@@ -100,7 +87,7 @@ function updateCreditsGpaWith(elements) {
     totalGradedCredits + totalUngradedCredits;
   const gpaInput = document.getElementById("gpa");
   if (haveAtLeastOneGrade && totalGradedCredits > 0) {
-    gpaInput.value = formatDecimal(totalPoints / totalGradedCredits);
+    gpaInput.value = (totalPoints / totalGradedCredits).toFixed(2);
   } else {
     gpaInput.value = "";
   }
