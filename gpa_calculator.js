@@ -3,14 +3,14 @@ var Invalid = -1000;
 // Insert the input fields for a new class
 // into the table.
 function addNewClass() {
-  var tbody = document.getElementById("classes_tbody");
-  var newTr = document.createElement("tr");
-  for (var i = 0; i < 3; ++i) {
-    var td = document.createElement("td");
-    var input = document.createElement("input");
+  const tbody = document.getElementById("classes_tbody");
+  const newTr = document.createElement("tr");
+  for (let i = 0; i < 3; ++i) {
+    const td = document.createElement("td");
+    const input = document.createElement("input");
     input.size = "15";
     if (i != 0) {
-      input.setAttribute("onchange", "updateCreditsGpa()");
+      input.addEventListener("change", updateCreditsGpa);
     }
     td.appendChild(input);
     newTr.appendChild(td);
@@ -20,13 +20,9 @@ function addNewClass() {
 
 // Update the credits and GPA fields.
 function updateCreditsGpa() {
-  if (document.getElementById) {
-    var tbody = document.getElementById("classes_tbody");
-    var elements = tbody.getElementsByTagName("input");
-    updateCreditsGpaWith(elements);
-  } else {
-    updateCreditsGpaWith(document.classes.elements);
-  }
+  const tbody = document.getElementById("classes_tbody");
+  const elements = tbody.getElementsByTagName("input");
+  updateCreditsGpaWith(elements);
 }
 
 // Convert the given float to a string of the closest
